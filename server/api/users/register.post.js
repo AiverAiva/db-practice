@@ -7,7 +7,7 @@ import { users } from "../../models";
 // }
 export default defineEventHandler(async (event) => {
   console.log("POST /api/users");
-  const { email, password, name } = await useBody(event); //<IRequestBody>
+  const { email, password, name } = await readBody(event); //<IRequestBody>
   try {
     const userData = await users.findOne({
       email,

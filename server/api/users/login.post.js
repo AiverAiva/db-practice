@@ -6,7 +6,7 @@ import { users } from "../../models";
 // }
 export default defineEventHandler(async (event) => {
   console.log("POST /api/users/signin");
-  const { email, password } = await useBody(event); //<IRequestBody>
+  const { email, password } = await readBody(event); //<IRequestBody>
   // Check if email is passed.
   if (!email) {
     event.res.statusCode = 400;
@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
       console.log("User found");
       const isPasswordValid = await userData.verifyPasswordSync(password);
       if (isPasswordValid) {
+        console.log("Successfully login!")
         // Generate token or create session here
         return {
           id: userData._id,
@@ -62,3 +63,4 @@ export default defineEventHandler(async (event) => {
     };
   }
 });
+
